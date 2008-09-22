@@ -51,7 +51,7 @@
     
     <replace file="service/CaDSR_Grid_Service/service.properties" token="cadsrapi.nci.nih.gov" value="${cadsrapi.loc}"/>
     <replace file="service/CaDSR_Grid_Service/introduce.xml" token="cadsrapi.nci.nih.gov" value="${cadsrapi.loc}"/>
-    <replace file="service/CaDSR_Grid_Service/deploy.properties" token="cagrid-index.nci.nih.gov\:8080"  value="${index.location}"/>
+    <replace file="service/CaDSR_Grid_Service/deploy.properties" token="@@INDEX_HOST@@"  value="${index.location}"/>
 
     <ant 
       dir="service/CaDSR_Grid_Service" 
