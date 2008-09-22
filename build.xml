@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="caDSR Grid Data Service" default="prepare" basedir=".">
+
+  <property environment="osEnv" /> 
+
+  <!-- setup for initialization checks -->  
+  <target name="init.check.setup">
+    <property environment="osEnv" />  
+  </target>
+  
+  <!-- check for required env var prior to doing anything --> 
+  <target name="init.check.env" depends="init.check.env.JBOSS, init.check.env.GLOBUS" />
+
+  <target name="init.check.env.JBOSS" depends="init.check.setup" unless="osEnv.JBOSS_HOME">
+    <fail message="This build needs JBOSS_HOME set"/>
+  </target>
+
+  <target name="init.check.env.GLOBUS" depends="init.check.setup" unless="osEnv.GLOBUS_LOCATION">
+    <fail message="This build needs GLOBUS_LOCATION set"/>
+  </target>
+
+  
+
+  <target name="prepare" depends="init.check.env">
+    <untar src="service.tar" dest="service"/>
+    <untar src="globus.tar" dest="globus"/>
+    <untar src="grid-jboss.tar" dest="grid-jboss"/>
+
+  </target>
+
+  <target name="globus-jboss-install" depends="init.check.env">
+    <replace file="grid-jboss/grid-jboss/jboss.xml" token="server/default" value="server/${jboss.server}"/>
+    <replace file="globus/globus-grid12/ws-core-4.0.3/etc/globus_wsrf_core/server-config.wsdd"
+      token="@@LOGICAL_HOST@@"
+      value="${hostname}"/>
+    <replace file="grid-jboss/grid-jboss/jboss.xml"
+      token="@@DEFAULT_PORT@@"
+      value="${port}"/>
+    <ant 
+      dir="grid-jboss/grid-jboss"
+      antfile="jboss.xml"
+      target="deployJBoss"
+      >
+      <property name="jboss.dir" value="${jboss.dir}"/>
+    </ant>
+  </target>
+
+
+  <target name="service-jboss-deploy" depends="init.check.env">
+    <replace file="service/CaDSR_Grid_Service/build-deploy.xml" token="server/default" value="server/${jboss.server}"/>
+    
+    <replace file="service/CaDSR_Grid_Service/service.properties" token="cadsrapi.nci.nih.gov" value="${cadsrapi.loc}"/>
+    <replace file="service/CaDSR_Grid_Service/introduce.xml" token="cadsrapi.nci.nih.gov" value="${cadsrapi.loc}"/>
+    <replace file="service/CaDSR_Grid_Service/deploy.properties" token="cagrid-index.nci.nih.gov\:8080"  value="${index.location}"/>
+
+    <ant 
+      dir="service/CaDSR_Grid_Service" 
+      target="all">
+    </ant>
+    <ant 
+      dir="service/CaDSR_Grid_Service" 
+      target="deployJBoss">
+    </ant>
+  </target>
+
+  <target name="all-jboss" depends="globus-jboss-install, service-jboss-deploy"/>
+
+  <target name="undeploy">
+    <delete dir="${jboss.dir}/server/${jboss.server}/deploy/wsrf.war"/>
+  </target>
+
+  <target name="clean">
+    <delete dir="globus"/>
+    <delete dir="service"/>
+    <delete dir="grid-jboss"/>
+  </target>
+
+  
+
+</project>
