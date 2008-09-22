@@ -63,7 +63,7 @@
     </ant>
   </target>
 
-  <target name="all-jboss" depends="globus-jboss-install, service-jboss-deploy"/>
+  <target name="all-jboss" depends="undeploy, prepare, globus-jboss-install, service-jboss-deploy"/>
 
   <target name="undeploy">
     <delete dir="${jboss.dir}/server/${jboss.server}/deploy/wsrf.war"/>
