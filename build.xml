@@ -80,6 +80,33 @@
     <delete dir="grid-jboss"/>
   </target>
 
+  <path id="test.class.path">
+    <pathelement location="test/classes"/>
+    <fileset dir="test/lib">
+      <include name="*.jar"/>
+    </fileset>
+  </path>
   
+
+  <target name="test">
+    <javac
+      destdir="test/classes"
+      debug="on"
+      srcdir="test/src"
+      deprecation="false"
+      fork="yes"
+      >
+      <classpath refid="test.class.path"/>
+    </javac>
+
+    <java 
+      classname="CadsrDataServiceTest" 
+      classpathref="test.class.path" 
+      fork="yes" 
+      >
+      <arg value="${serviceURL}"/>
+      <arg value="test/data"/>
+    </java>
+  </target>
 
 </project>
