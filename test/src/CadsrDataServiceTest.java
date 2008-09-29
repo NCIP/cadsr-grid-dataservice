@@ -58,12 +58,14 @@ public class CadsrDataServiceTest {
         Iterator iter = new CQLQueryResultsIterator(results, true);
         // iterate and print XML
         System.out.println("-- RESULT --");
+        int i = 0;
         while (iter.hasNext()) {
           String value = (String) iter.next();
-          //           System.out.println(value);
+          System.out.println(value);
           System.out.print("+");
+          i++;
         }
-        System.out.println("");
+        System.out.println("Nb of results: " + i);
       }
     } catch (Exception ex) {
       ex.printStackTrace();
