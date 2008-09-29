@@ -1,0 +1,10 @@
+<CQLQuery xmlns="http://CQL.caBIG/1/gov.nih.nci.cagrid.CQLQuery">
+ <Target name="gov.nih.nci.cadsr.umlproject.domain.UMLPackageMetadata">
+   <Association roleName="project" name="gov.nih.nci.cadsr.umlproject.domain.Project">
+     <Group logicRelation="AND">
+       <Attribute name="longName" value="caCORE 3.2" predicate="EQUAL_TO"/>
+       <Attribute name="version" value="3.2" predicate="EQUAL_TO"/>
+     </Group>
+   </Association>
+ </Target>
+</CQLQuery>
