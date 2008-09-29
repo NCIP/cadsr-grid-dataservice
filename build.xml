@@ -105,7 +105,7 @@
       fork="yes" 
       >
       <arg value="${serviceURL}"/>
-      <arg value="test/data"/>
+      <arg value="${testDir}"/>
     </java>
   </target>
 
