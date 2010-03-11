@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<project name="caDSR Grid Data Service" default="prepare" basedir=".">
+<project name="caDSR Grid Data Service" default="usage" basedir=".">
 
-  <property environment="osEnv" /> 
+  <property file="build.properties"/>
+  
+  <property environment="osEnv" />
+  
+  <property name="cadsr.jboss.dir"               value="${osEnv.JBOSS_HOME}"/>
 
-  <!-- setup for initialization checks -->  
+  <!-- setup for initialization checks -->
   <target name="init.check.setup">
-    <property environment="osEnv" />  
+    <property environment="osEnv" />
   </target>
   
-  <!-- check for required env var prior to doing anything --> 
+  <!-- check for required env var prior to doing anything -->
   <target name="init.check.env" depends="init.check.env.JBOSS, init.check.env.GLOBUS" />
 
   <target name="init.check.env.JBOSS" depends="init.check.setup" unless="osEnv.JBOSS_HOME">
@@ -25,38 +29,44 @@
     <untar src="service.tar" dest="service"/>
     <untar src="globus.tar" dest="globus"/>
     <untar src="grid-jboss.tar" dest="grid-jboss"/>
-
   </target>
 
   <target name="globus-jboss-install" depends="init.check.env">
-    <!--
-    <replace file="grid-jboss/grid-jboss/jboss.xml" token="server/default" value="server/${jboss.server}"/>
-    -->
-    <replace file="globus/globus-grid12/ws-core-4.0.3/etc/globus_wsrf_core/server-config.wsdd"
+    <replace file="grid-jboss/grid-jboss/jboss.xml" token="server/default" value="server/${cadsr.jboss.server}"/>
+
+    <replace file="globus/globus-grid13/ws-core-4.0.3/etc/globus_wsrf_core/server-config.wsdd"
       token="@@LOGICAL_HOST@@"
-      value="${hostname}"/>
+      value="${cadsr.hostname}"/>
     <replace file="grid-jboss/grid-jboss/jboss.xml"
       token="@@DEFAULT_PORT@@"
-      value="${port}"/>
+      value="${cadsr.port}"/>
     <ant 
       dir="grid-jboss/grid-jboss"
       antfile="jboss.xml"
       target="deployJBoss"
       >
-      <property name="jboss.dir" value="${jboss.dir}"/>
+      <property name="jboss.dir" value="${cadsr.jboss.dir}"/>
     </ant>
   </target>
 
 
   <target name="service-jboss-deploy" depends="init.check.env">
+    <replace file="service/CaDSR_Grid_Service/build-deploy.xml" token="server/default" value="server/${cadsr.jboss.server}"/>
+    <replace file="service/CaDSR_Grid_Service/service.properties" token="cadsrapi.nci.nih.gov" value="${cadsr.cadsrapi.loc}"/>
+    <replace file="service/CaDSR_Grid_Service/introduce.xml" token="cadsrapi.nci.nih.gov" value="${cadsr.cadsrapi.loc}"/>
+    <replace file="service/CaDSR_Grid_Service/deploy.properties" token="@@INDEX_HOST@@"  value="${cadsr.index.location}"/>
+    
+    <replace file="service/CaDSR_Grid_Service/jndi-config.xml" token="@@jdbc.url@@"  value="${cadsr.jdbc.url}"/>
+    <replace file="service/CaDSR_Grid_Service/jndi-config.xml" token="@@username@@"  value="${cadsr.username}"/>
+    <replace file="service/CaDSR_Grid_Service/jndi-config.xml" token="@@password@@"  value="${cadsr.password}"/>
+    
+    <replace file="service/CaDSR_Grid_Service/deploy.properties" token="@@index.service.url@@"  value="${cadsr.index.service.url}"/>
+    
 
-    <!--
-    <replace file="service/CaDSR_Grid_Service/build-deploy.xml" token="server/default" value="server/${jboss.server}"/>
-    -->
-
-    <replace file="service/CaDSR_Grid_Service/service.properties" token="cadsrapi.nci.nih.gov" value="${cadsrapi.loc}"/>
-    <replace file="service/CaDSR_Grid_Service/introduce.xml" token="cadsrapi.nci.nih.gov" value="${cadsrapi.loc}"/>
-    <replace file="service/CaDSR_Grid_Service/deploy.properties" token="@@INDEX_HOST@@"  value="${index.location}"/>
+   <ant 
+      dir="service/CaDSR_Grid_Service" 
+      target="clean">
+    </ant>	
 
     <ant 
       dir="service/CaDSR_Grid_Service" 
@@ -66,13 +76,16 @@
       dir="service/CaDSR_Grid_Service" 
       target="deployJBoss">
     </ant>
+      
   </target>
 
-  <target name="all-jboss" depends="prepare, globus-jboss-install, service-jboss-deploy"/>
+  <target name="deploy" depends="prepare, globus-jboss-install, service-jboss-deploy, copyfiles"/>
 
   <target name="undeploy">
-    <delete dir="${jboss.dir}/server/${jboss.server}/deploy/wsrf.war"/>
+    <delete dir="${cadsr.jboss.dir}/server/${cadsr.jboss.server}/deploy/wsrf.war"/>
   </target>
+
+  <target name="redeploy" depends="clean, undeploy, deploy"/>
 
   <target name="clean">
     <delete dir="globus"/>
@@ -80,33 +93,38 @@
     <delete dir="grid-jboss"/>
   </target>
 
-  <path id="test.class.path">
-    <pathelement location="test/classes"/>
-    <fileset dir="test/lib">
-      <include name="*.jar"/>
-    </fileset>
-  </path>
+  <target name="copyfiles">
+    <delete file="${cadsr.jboss.dir}/server/${cadsr.jboss.server}/deploy/wsrf.war/WEB-INF/lib/hibernate3.jar"/>
+    
+    <copy todir="${cadsr.jboss.dir}/server/${cadsr.jboss.server}/deploy/wsrf.war/WEB-INF/lib">
+      <fileset dir="additional.lib"/>
+    </copy>
+  </target>
   
-
-  <target name="test">
-    <javac
-      destdir="test/classes"
-      debug="on"
-      srcdir="test/src"
-      deprecation="false"
-      fork="yes"
-      >
-      <classpath refid="test.class.path"/>
-    </javac>
-
-    <java 
-      classname="CadsrDataServiceTest" 
-      classpathref="test.class.path" 
-      fork="yes" 
-      >
-      <arg value="${serviceURL}"/>
-      <arg value="${testDir}"/>
-    </java>
+  <target name="usage">
+        <echo message=""/>
+        <echo message="caDSR Grid Service Build Script"/>
+        <echo message="-----------------------------------------------"/>
+        <echo message=""/>
+        <echo message="NOTE: Before running this script, make sure the following:"/>
+        <echo message="  1. JBOSS_HOME and GLOBUS_LOCATION must be set in your OS environment."/>
+        <echo message="  2. JBOSS Server is shutdown."/>
+        <echo message=""/>
+        <echo message="Environment settings:"/>
+        <echo message=""/>
+        <echo message="     JBOSS_HOME: ${osEnv.JBOSS_HOME}" />
+        <echo message="GLOBUS_LOCATION: ${osEnv.GLOBUS_LOCATION}" />
+        <echo message=""/>
+        <echo message="Available targets are:"/>
+        <echo message=""/>
+        <echo message="deploy              --> deploy to JBOSS"/>
+        <echo message="redeploy            --> redeploy to JBOSS"/>
+        <echo message="undeploy            --> undeploy from JBOSS"/>
+        <echo message="clean               --> clean up untared directories"/>
+        <echo message=""/>
+        <echo message="cadsr build properties:"/>
+        <echo message=""/>
+        <echoproperties prefix="cadsr"/>
   </target>
 
 </project>
