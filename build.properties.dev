@@ -3,7 +3,6 @@
 #
 cadsr.cadsrapi.loc=cadsrapi-dev.nci.nih.gov
 cadsr.index.service.url=http://index.training.cagrid.org:8080/wsrf/services/DefaultIndexService
-cadsr.index.location=index.training.cagrid.org:8080
 cadsr.jboss.server=ncicb-59480
 cadsr.hostname=dev-host
 cadsr.port=59480

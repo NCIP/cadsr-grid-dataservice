@@ -54,7 +54,6 @@
     <replace file="service/CaDSR_Grid_Service/build-deploy.xml" token="server/default" value="server/${cadsr.jboss.server}"/>
     <replace file="service/CaDSR_Grid_Service/service.properties" token="cadsrapi.nci.nih.gov" value="${cadsr.cadsrapi.loc}"/>
     <replace file="service/CaDSR_Grid_Service/introduce.xml" token="cadsrapi.nci.nih.gov" value="${cadsr.cadsrapi.loc}"/>
-    <replace file="service/CaDSR_Grid_Service/deploy.properties" token="@@INDEX_HOST@@"  value="${cadsr.index.location}"/>
     
     <replace file="service/CaDSR_Grid_Service/jndi-config.xml" token="@@jdbc.url@@"  value="${cadsr.jdbc.url}"/>
     <replace file="service/CaDSR_Grid_Service/jndi-config.xml" token="@@username@@"  value="${cadsr.username}"/>
