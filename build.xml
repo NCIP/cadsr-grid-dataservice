@@ -78,7 +78,7 @@
       
   </target>
 
-  <target name="deploy" depends="prepare, globus-jboss-install, service-jboss-deploy, copyfiles"/>
+  <target name="deploy" depends="prepare, globus-jboss-install, service-jboss-deploy, copyfiles, changeToPort80"/>
 
   <target name="undeploy">
     <delete dir="${cadsr.jboss.dir}/server/${cadsr.jboss.server}/deploy/wsrf.war"/>
@@ -100,6 +100,10 @@
     </copy>
   </target>
   
+  <target name="changeToPort80">
+    <replace file="${cadsr.jboss.dir}/server/${cadsr.jboss.server}/deploy/wsrf.war/WEB-INF/web.xml" token="8080" value="${cadsr.port}"/>
+  </target>
+  
   <target name="usage">
         <echo message=""/>
         <echo message="caDSR Grid Service Build Script"/>
@@ -107,7 +111,8 @@
         <echo message=""/>
         <echo message="NOTE: Before running this script, make sure the following:"/>
         <echo message="  1. JBOSS_HOME and GLOBUS_LOCATION must be set in your OS environment."/>
-        <echo message="  2. JBOSS Server is shutdown."/>
+        <echo message="  2. GLOBUS_LOCATION must point to globus/globus-grid13/ws-core-4.0.3."/>
+        <echo message="  3. JBOSS Server is shutdown."/>
         <echo message=""/>
         <echo message="Environment settings:"/>
         <echo message=""/>

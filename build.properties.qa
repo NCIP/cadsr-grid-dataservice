@@ -1,0 +1,14 @@
+#
+# cadsr service related
+#
+cadsr.cadsrapi.loc=cadsrapi-dev.nci.nih.gov
+cadsr.index.service.url=http://cagrid-index-qa.nci.nih.gov:8080/wsrf/services/DefaultIndexService
+cadsr.jboss.server=default
+cadsr.hostname=cadsr-dataservice-qa.nci.nih.gov
+cadsr.port=80
+#
+# cadsr database related
+#
+cadsr.jdbc.url=jdbc:oracle:thin:@qa-db-name:1551:dsrdev
+cadsr.username=cadsr_api
+cadsr.password=cdapi#513

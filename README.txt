@@ -8,8 +8,12 @@ Before deploying requirements
 Before deploying the service, make sure you have the following environment variables:
 
 export ANT_HOME=/usr/local/ant-1.7.0
-export GLOBUS_LOCATION=/h1/chenj15/devenv/ws-core-4.0.3
+export GLOBUS_LOCATION=globus/globus-grid13/ws-core-4.0.3.
 export JBOSS_HOME=/usr/local/jboss404
+
+If your GLOBUS_LOCATION does not point to the untarred location of globus.tar, then 
+you need to manually replace @@LOGICAL_HOST@@ by ${cadsr.hostname} 
+in wsrf.war\WEB-INF\etc\globus_wsrf_core\server-config.wsdd file.
 
 2. build.properties
 You need to modify the values in build.properties file for your specific deployment.
