@@ -15,6 +15,9 @@ If your GLOBUS_LOCATION does not point to the untarred location of globus.tar, t
 you need to manually replace @@LOGICAL_HOST@@ by ${cadsr.hostname} 
 in wsrf.war\WEB-INF\etc\globus_wsrf_core\server-config.wsdd file.
 
+If your JBOSS_HOME does not point to the current JBoss server location, then you need 
+to manually copy generated files over.
+
 2. build.properties
 You need to modify the values in build.properties file for your specific deployment.
 
