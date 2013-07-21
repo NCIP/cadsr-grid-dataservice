@@ -14,6 +14,6 @@ You will find more details about the caDSR Grid Dataservice in the following lin
  
 An NCI hosted instance of caDSR Grid Dataservice is publicly available at:
 
-http://cadsr-dataservice.nci.nih.gov/wsrf/services/cagrid/CaDSRDataService, 
+[Production Instance] (http://cadsr-dataservice.nci.nih.gov/wsrf/services/cagrid/CaDSRDataService)
 
-Please join us in further developing and improving the caDSR Grid Dataservice.
+Please join us in further developing and improving the caDSR Grid Dataservice project.

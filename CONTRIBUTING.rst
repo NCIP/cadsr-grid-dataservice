@@ -2,7 +2,7 @@
 How to Contribute
 =================
 
-We welcome community contributions to the caDSR Bulk Loader project.
+We welcome community contributions to the caDSR Grid Dataservice project.
 Your contributions back to this repository will allow the broader
 research community to benefit from your work and will allow your
 enhancements to be integrated with those of others.  There are a few
@@ -17,7 +17,7 @@ Getting Started
 
 * Fork the repository on GitHub to publish any proposed changes
 
-* Submit a ticket for your issue at [tracker] (https://gforge.nci.nih.gov/tracker/?group_id=582),
+* Submit a ticket for your issue at [tracker] (https://gforge.nci.nih.gov/tracker/?group_id=539),
   assuming one does not already exist.
 
   - Click [here] (https://gforge.nci.nih.gov/account/register.php) to get a new account.
@@ -69,7 +69,7 @@ Submitting Changes
 .. If the project uses an issue tracker, use the next bullet.
    Otherwise, remove the next bullet.  Delete this note either way.
 
-* Update your [tracker] (https://gforge.nci.nih.gov/tracker/?group_id=582) ticket to mark that you have submitted
+* Update your [tracker] (https://gforge.nci.nih.gov/tracker/?group_id=539) ticket to mark that you have submitted
   code and are ready for it to be reviewed.
 
   - Include a link to the pull request in the ticket
