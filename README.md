@@ -1,7 +1,6 @@
 Welcome to the caDSR Grid Dataservice Project!
 =====================================
-
-The caDSR Grid Dataservice uploads metadata from an Excel spreadsheet into the caDSR. 
+TBD
 
 The caDSR Grid Dataservice is distributed under the BSD 3-Clause License.
 Please see the NOTICE and LICENSE files for details.
