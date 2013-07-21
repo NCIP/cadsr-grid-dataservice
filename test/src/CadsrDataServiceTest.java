@@ -1,3 +1,10 @@
+/*L
+ * Copyright Ekagra Software Technologies Ltd, SAIC-F Inc.
+ *
+ * Distributed under the OSI-approved BSD 3-Clause License.
+ * See http://ncip.github.com/cadsr-grid-dataservice/LICENSE.txt for details.
+ */
+
 import gov.nih.nci.cagrid.cqlquery.CQLQuery;
 import gov.nih.nci.cagrid.data.client.DataServiceClient;
 import java.util.Iterator;
