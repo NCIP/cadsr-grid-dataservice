@@ -1,6 +1,6 @@
 Welcome to the caDSR Grid Dataservice Project!
 =====================================
-TBD
+caDSR Grid Dataservice
 
 The caDSR Grid Dataservice is distributed under the BSD 3-Clause License.
 Please see the NOTICE and LICENSE files for details.
