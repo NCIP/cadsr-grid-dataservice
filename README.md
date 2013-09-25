@@ -11,7 +11,7 @@ You will find more details about the caDSR Grid Dataservice in the following lin
 
  * [Code Repository] (https://github.com/NCIP/cadsr-grid-dataservice)
  * [Issue Tracker] (https://gforge.nci.nih.gov/tracker/?group_id=539)
- * [Downloads] (http://gforge.nci.nih.gov/frs/?group_id=539)
+ * [Installation Package] (http://gforge.nci.nih.gov/frs/?group_id=539)
  * [Documentation] (https://gforge.nci.nih.gov/docman/?group_id=539)
  * [NCI Instance] (http://cadsr-dataservice.nci.nih.gov/wsrf/services/cagrid/CaDSRDataService)
  
