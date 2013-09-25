@@ -1,8 +1,8 @@
 Welcome to the caDSR Grid Dataservice Project!
 =====================================
-The caDSR Grid Dataservice is a caGrid enabled dataservice
+The caDSR Grid Dataservice is a caGrid enabled dataservice that is generated using caGrid framework.
 
-The caDSR Grid Dataservice is generated using caGrid framework and requires Apache Ant for building.
+It is developed using Java and requires Apache Ant for building.
  
 The caDSR Grid Dataservice is distributed under the BSD 3-Clause License.
 Please see the NOTICE and LICENSE files for details.
